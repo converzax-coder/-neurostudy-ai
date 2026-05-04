@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuroStudy AI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    body {
+      background: #f7f4ff;
+      color: #1f1f2e;
+    }
+
+    header {
+      padding: 24px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #6c4df6;
+    }
+
+    nav a {
+      margin-left: 22px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 60px 7%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4.7rem);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: #6c4df6;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #555;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      border: none;
+      background: #6c4df6;
+      color: white;
+      padding: 15px 24px;
+      border-radius: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 12px 24px rgba(108,77,246,.25);
+    }
+
+    .mockup {
+      background: white;
+      border-radius: 32px;
+      padding: 26px;
+      box-shadow: 0 25px 60px rgba(31,31,46,.15);
+    }
+
+    .card-title {
+      font-size: .95rem;
+      color: #777;
+      margin-bottom: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      border: 2px solid #eee;
+      border-radius: 20px;
+      padding: 16px;
+      resize: none;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .modes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .mode {
+      padding: 14px;
+      border-radius: 18px;
+      border: 2px solid #eee;
+      background: #fafafa;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mode.active {
+      background: #eee9ff;
+      border-color: #6c4df6;
+      color: #6c4df6;
+    }
+
+    .result {
+      margin-top: 20px;
+      background: #111827;
+      color: white;
+      padding: 20px;
+      border-radius: 24px;
+      line-height: 1.6;
+    }
+
+    .result h3 {
+      margin-bottom: 12px;
+      color: #c7bfff;
+    }
+
+    .features {
+      padding: 50px 7% 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .feature {
+      background: white;
+      padding: 28px;
+      border-radius: 28px;
+      box-shadow: 0 15px 35px rgba(31,31,46,.08);
+    }
+
+    .feature h3 {
+      color: #6c4df6;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 850px) {
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 30px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NeuroStudy AI</div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Modos</a>
+      <a href="#">Accesibilidad</a>
+      <a href="#">Precios</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Estudia sin sentir que todo te <span>abruma</span>.</h1>
+      <p>
+        Pega cualquier texto académico y conviértelo en resúmenes simples,
+        pasos accionables, preguntas de examen o explicación fácil.
+      </p>
+      <button class="btn" onclick="document.querySelector('textarea').focus()">
+        Probar ahora
+      </button>
+    </div>
+
+    <div class="mockup">
+      <div class="card-title">Pega aquí tu lectura, apunte o tarea</div>
+
+      <textarea id="inputText" placeholder="Ejemplo: pega un texto largo de clase, una lectura difícil o instrucciones de una tarea..."></textarea>
+
+      <div class="modes">
+        <button class="mode active" onclick="selectMode(this, 'facil')">Explícame fácil</button>
+        <button class="mode" onclick="selectMode(this, 'tdah')">Modo TDAH</button>
+        <button class="mode" onclick="selectMode(this, 'examen')">Modo examen</button>
+        <button class="mode" onclick="selectMode(this, 'visual')">Mapa mental</button>
+      </div>
+
+      <button class="btn" style="width:100%" onclick="generateResult()">Convertir contenido</button>
+
+      <div class="result" id="result">
+        <h3>Resultado accesible</h3>
+        <p>
+          Tu contenido aparecerá aquí dividido en ideas claras, pasos cortos y lenguaje sencillo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <h3>Reduce la carga mental</h3>
+      <p>
+        Convierte textos densos en bloques cortos, claros y fáciles de procesar.
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>No necesitas saber prompts</h3>
+      <p>
+        El usuario solo selecciona un modo. La app hace la estructura por él.
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>Diseñada para estudiar</h3>
+      <p>
+        No es un chat genérico. Está pensada para transformar contenido académico en acción.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    let currentMode = "facil";
+
+    function selectMode(button, mode) {
+      currentMode = mode;
+      document.querySelectorAll(".mode").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+    }
+
+    function generateResult() {
+      const text = document.getElementById("inputText").value.trim();
+      const result = document.getElementById("result");
+
+      if (!text) {
+        result.innerHTML = `
+          <h3>Falta contenido</h3>
+          <p>Pega primero un texto, lectura o instrucción para transformarlo.</p>
+        `;
+        return;
+      }
+
+      const outputs = {
+        facil: `
+          <h3>Explicación fácil</h3>
+          <p><strong>Idea principal:</strong> Este texto trata sobre un tema académico complejo, pero puede entenderse por partes.</p>
+          <p><strong>En palabras simples:</strong> primero identifica el problema, luego mira los argumentos principales y finalmente revisa la conclusión.</p>
+          <p><strong>Qué debes recordar:</strong> no memorices todo; quédate con la relación entre conceptos.</p>
+        `,
+        tdah: `
+          <h3>Modo TDAH</h3>
+          <p><strong>Paso 1 — 5 minutos:</strong> lee solo el primer párrafo.</p>
+          <p><strong>Paso 2 — 10 minutos:</strong> subraya tres ideas importantes.</p>
+          <p><strong>Paso 3 — 5 minutos:</strong> escribe una frase con lo que entendiste.</p>
+          <p><strong>Objetivo pequeño:</strong> avanzar sin intentar hacerlo perfecto.</p>
+        `,
+        examen: `
+          <h3>Modo examen</h3>
+          <p><strong>Pregunta 1:</strong> ¿Cuál es la idea central del texto?</p>
+          <p><strong>Pregunta 2:</strong> ¿Qué conceptos se relacionan entre sí?</p>
+          <p><strong>Pregunta 3:</strong> ¿Qué ejemplo podrías usar para explicarlo?</p>
+          <p><strong>Tip:</strong> responde en voz alta para verificar si realmente lo entendiste.</p>
+        `,
+        visual: `
+          <h3>Mapa mental</h3>
+          <p><strong>Tema central:</strong> contenido académico.</p>
+          <p>↳ Concepto principal</p>
+          <p>↳ Argumentos secundarios</p>
+          <p>↳ Ejemplos</p>
+          <p>↳ Conclusión o aplicación práctica</p>
+        `
+      };
+
+      result.innerHTML = outputs[currentMode];
+    }
+  </script>
+
+</body>
+</html>
