@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NeuroStudy AI</title>
 
-  <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
   <style>
@@ -17,80 +16,135 @@
     }
 
     body {
-      background: #f7f4ff;
+      background: linear-gradient(135deg, #f7f4ff, #eef7ff);
       color: #1f1f2e;
     }
 
     header {
-      padding: 20px 7%;
+      padding: 22px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-weight: 800;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      font-weight: 900;
       color: #6c4df6;
     }
 
+    .badge {
+      background: #e9e4ff;
+      color: #6c4df6;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
     .hero {
-      padding: 40px 7%;
+      padding: 45px 7%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.1fr;
       gap: 40px;
       align-items: center;
     }
 
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 1;
+      margin-bottom: 22px;
     }
 
-    .hero h1 span {
+    h1 span {
       color: #6c4df6;
     }
 
-    .hero p {
+    .intro {
       color: #555;
-      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
     }
 
-    .mockup {
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pill {
       background: white;
-      border-radius: 25px;
-      padding: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      border: 1px solid #e7e3ff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .9rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,.05);
+    }
+
+    .app {
+      background: white;
+      border-radius: 34px;
+      padding: 24px;
+      box-shadow: 0 25px 70px rgba(31,31,46,.14);
+    }
+
+    .app h2 {
+      margin-bottom: 8px;
+    }
+
+    .hint {
+      color: #777;
+      font-size: .9rem;
+      margin-bottom: 16px;
+    }
+
+    .upload-box {
+      border: 2px dashed #cfc7ff;
+      background: #faf9ff;
+      padding: 18px;
+      border-radius: 22px;
+      margin-bottom: 14px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      margin-top: 10px;
     }
 
     textarea {
       width: 100%;
-      min-height: 130px;
-      border-radius: 15px;
+      min-height: 150px;
       border: 2px solid #eee;
-      padding: 12px;
-      margin-top: 10px;
+      border-radius: 22px;
+      padding: 16px;
+      resize: vertical;
       outline: none;
+      font-size: 1rem;
+      line-height: 1.5;
     }
 
-    input[type="file"] {
-      margin-top: 10px;
+    textarea:focus {
+      border-color: #6c4df6;
     }
 
     .modes {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin: 15px 0;
+      gap: 12px;
+      margin: 18px 0;
     }
 
     .mode {
-      padding: 10px;
-      border-radius: 12px;
       border: 2px solid #eee;
       background: #fafafa;
+      border-radius: 18px;
+      padding: 14px;
+      font-weight: 800;
       cursor: pointer;
-      font-weight: bold;
+      text-align: left;
     }
 
     .mode.active {
@@ -100,26 +154,98 @@
     }
 
     .btn {
+      border: none;
+      border-radius: 18px;
+      padding: 15px 18px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .primary {
       width: 100%;
-      padding: 12px;
       background: #6c4df6;
       color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
+      box-shadow: 0 12px 30px rgba(108,77,246,.25);
+    }
+
+    .secondary {
+      background: #f0eeff;
+      color: #6c4df6;
+      margin-top: 10px;
+      width: 100%;
     }
 
     .result {
-      margin-top: 15px;
-      background: #111827;
-      color: white;
-      padding: 15px;
-      border-radius: 15px;
+      margin-top: 20px;
+      display: grid;
+      gap: 14px;
     }
 
-    @media(max-width: 800px){
+    .card {
+      background: #111827;
+      color: white;
+      border-radius: 22px;
+      padding: 18px;
+      line-height: 1.6;
+    }
+
+    .card h3 {
+      color: #c7bfff;
+      margin-bottom: 8px;
+    }
+
+    .visual-card {
+      background: #f7f4ff;
+      border: 1px solid #e4ddff;
+      color: #1f1f2e;
+    }
+
+    .visual-card h3 {
+      color: #6c4df6;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: .9rem;
+      color: #666;
+    }
+
+    .features {
+      padding: 30px 7% 70px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .feature {
+      background: white;
+      padding: 24px;
+      border-radius: 26px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.07);
+    }
+
+    .feature h3 {
+      color: #6c4df6;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    @media(max-width: 850px) {
       .hero {
+        grid-template-columns: 1fr;
+        padding-top: 20px;
+      }
+
+      .modes {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
         grid-template-columns: 1fr;
       }
     }
@@ -130,84 +256,304 @@
 
 <header>
   <div class="logo">NeuroStudy AI</div>
+  <div class="badge">Accesibilidad + IA</div>
 </header>
 
 <section class="hero">
   <div>
-    <h1>Convierte el estudio en algo <span>claro</span></h1>
-    <p>Pega texto o sube un PDF y transfórmalo en contenido fácil de entender.</p>
+    <h1>Convierte cualquier contenido en algo <span>fácil, visual y comprensible</span>.</h1>
+    <p class="intro">
+      Sube un PDF o pega un texto y transforma el estudio en una experiencia clara,
+      accesible y adaptada a diferentes formas de aprender.
+    </p>
+
+    <div class="pill-row">
+      <div class="pill">🧠 Modo TDAH</div>
+      <div class="pill">👁️ Visual</div>
+      <div class="pill">📄 PDF</div>
+      <div class="pill">🔊 Lectura por voz</div>
+      <div class="pill">🤟 Accesibilidad auditiva</div>
+    </div>
   </div>
 
-  <div class="mockup">
-    <label>Sube un PDF:</label>
-    <input type="file" id="pdfUpload" accept="application/pdf">
+  <div class="app">
+    <h2>Transforma tu contenido</h2>
+    <p class="hint">Diseñado para estudiar sin sobrecarga, con estructura clara y apoyo visual.</p>
 
-    <textarea id="inputText" placeholder="O pega tu texto aquí..."></textarea>
-
-    <div class="modes">
-      <button class="mode active" onclick="selectMode(this,'facil')">Fácil</button>
-      <button class="mode" onclick="selectMode(this,'tdah')">TDAH</button>
-      <button class="mode" onclick="selectMode(this,'examen')">Examen</button>
-      <button class="mode" onclick="selectMode(this,'visual')">Visual</button>
+    <div class="upload-box">
+      <strong>Sube un PDF</strong>
+      <p class="hint">Funciona mejor con PDFs digitales, no escaneados como imagen.</p>
+      <input type="file" id="pdfUpload" accept="application/pdf">
+      <p class="status" id="pdfStatus"></p>
     </div>
 
-    <button class="btn" onclick="generateResult()">Procesar</button>
+    <textarea id="inputText" placeholder="O pega aquí tu lectura, apuntes, instrucciones o tema de estudio..."></textarea>
+
+    <div class="modes">
+      <button class="mode active" onclick="selectMode(this,'facil')">✨ Fácil<br><small>Explicación simple</small></button>
+      <button class="mode" onclick="selectMode(this,'tdah')">🧩 TDAH<br><small>Pasos cortos</small></button>
+      <button class="mode" onclick="selectMode(this,'examen')">📝 Examen<br><small>Preguntas y respuestas</small></button>
+      <button class="mode" onclick="selectMode(this,'visual')">👁️ Visual<br><small>Tarjetas y mapa</small></button>
+      <button class="mode" onclick="selectMode(this,'accesible')">🤟 Lectura accesible<br><small>Lenguaje claro</small></button>
+      <button class="mode" onclick="selectMode(this,'divertido')">🎮 Divertido<br><small>Estudio dinámico</small></button>
+    </div>
+
+    <button class="btn primary" onclick="generateResult()">Convertir con IA</button>
+    <button class="btn secondary" onclick="speakResult()">🔊 Leer resultado en voz alta</button>
+    <button class="btn secondary" onclick="stopSpeech()">⏹️ Detener lectura</button>
 
     <div class="result" id="result">
-      Aquí aparecerá el resultado
+      <div class="card visual-card">
+        <h3>Resultado accesible</h3>
+        <p>Tu contenido aparecerá aquí convertido en tarjetas claras, visuales y fáciles de estudiar.</p>
+      </div>
     </div>
   </div>
 </section>
 
+<section class="features">
+  <div class="feature">
+    <h3>Para personas sordas</h3>
+    <p>Prioriza contenido visual, lectura clara, estructura por tarjetas y explicaciones sin depender del audio.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Para estudiar mejor</h3>
+    <p>Convierte textos largos en pasos, preguntas, ideas clave y mapas mentales simples.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Con apoyo de voz</h3>
+    <p>Incluye lectura en voz alta para quienes prefieren escuchar o combinar lectura y audio.</p>
+  </div>
+</section>
+
 <script>
-let currentMode = "facil";
+  let currentMode = "facil";
+  let lastResultText = "";
 
-function selectMode(btn, mode){
-  currentMode = mode;
-  document.querySelectorAll(".mode").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
+  const BACKEND_URL = "https://TU-BACKEND.onrender.com/api/estudiar";
 
-function generateResult(){
-  const text = document.getElementById("inputText").value;
+  function selectMode(btn, mode) {
+    currentMode = mode;
+    document.querySelectorAll(".mode").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
 
-  const outputs = {
-    facil: "Resumen sencillo:\n- Idea principal\n- Explicación simple\n- Conclusión clara",
-    tdah: "Modo TDAH:\nPaso 1: lee poco\nPaso 2: subraya\nPaso 3: resume en 1 frase",
-    examen: "Preguntas:\n1. ¿Qué dice el texto?\n2. ¿Conceptos clave?\n3. ¿Ejemplo?",
-    visual: "Mapa mental:\nTema → ideas → ejemplos → conclusión"
-  };
+  function renderCards(text) {
+    lastResultText = text;
 
-  document.getElementById("result").innerText = outputs[currentMode];
-}
+    const sections = text
+      .split(/\n{2,}/)
+      .map(s => s.trim())
+      .filter(Boolean);
 
-const fileInput = document.getElementById("pdfUpload");
-const textarea = document.getElementById("inputText");
+    const result = document.getElementById("result");
+    result.innerHTML = "";
 
-fileInput.addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = async function () {
-    const typedarray = new Uint8Array(this.result);
-    const pdf = await pdfjsLib.getDocument(typedarray).promise;
-
-    let text = "";
-
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      const strings = content.items.map(item => item.str);
-      text += strings.join(" ") + "\n\n";
+    if (sections.length === 0) {
+      result.innerHTML = `
+        <div class="card visual-card">
+          <h3>Sin resultado</h3>
+          <p>No se pudo generar contenido.</p>
+        </div>
+      `;
+      return;
     }
 
-    textarea.value = text;
-  };
+    sections.forEach((section, index) => {
+      const card = document.createElement("div");
+      card.className = index % 2 === 0 ? "card visual-card" : "card";
 
-  reader.readAsArrayBuffer(file);
-});
+      card.innerHTML = `
+        <h3>${getCardTitle(index)}</h3>
+        <p>${formatText(section)}</p>
+      `;
+
+      result.appendChild(card);
+    });
+  }
+
+  function getCardTitle(index) {
+    const titles = [
+      "📌 Idea principal",
+      "🧠 Explicación clara",
+      "✅ Pasos para estudiar",
+      "❓ Preguntas clave",
+      "🌟 Recuerda esto"
+    ];
+
+    return titles[index % titles.length];
+  }
+
+  function formatText(text) {
+    return text
+      .replace(/\n/g, "<br>")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  }
+
+  async function generateResult() {
+    const text = document.getElementById("inputText").value.trim();
+    const result = document.getElementById("result");
+
+    if (!text) {
+      renderCards("Pega un texto o sube un PDF primero.");
+      return;
+    }
+
+    result.innerHTML = `
+      <div class="card visual-card">
+        <h3>Procesando</h3>
+        <p>La IA está convirtiendo tu contenido en un formato accesible...</p>
+      </div>
+    `;
+
+    try {
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: text,
+          mode: currentMode
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.result) {
+        renderCards(data.result);
+      } else {
+        renderLocalFallback(text);
+      }
+
+    } catch (error) {
+      renderLocalFallback(text);
+    }
+  }
+
+  function renderLocalFallback(text) {
+    const fallback = {
+      facil:
+`Este contenido trata sobre un tema que puede dividirse en partes simples.
+
+Primero identifica la idea central. Después separa los argumentos principales. Finalmente escribe una conclusión con tus propias palabras.
+
+No intentes memorizar todo. Concéntrate en comprender la relación entre las ideas.`,
+
+      tdah:
+`Paso 1: lee solo un fragmento corto durante cinco minutos.
+
+Paso 2: subraya tres ideas importantes.
+
+Paso 3: escribe una frase con lo que entendiste.
+
+Paso 4: descansa un momento y vuelve con una pregunta concreta.`,
+
+      examen:
+`Pregunta 1: ¿Cuál es la idea principal del contenido?
+
+Pregunta 2: ¿Qué conceptos aparecen repetidamente?
+
+Pregunta 3: ¿Qué ejemplo podrías usar para explicar el tema?
+
+Pregunta 4: ¿Cuál sería una conclusión breve?`,
+
+      visual:
+`Tema central
+→ Idea principal
+→ Conceptos secundarios
+→ Ejemplos
+→ Conclusión
+
+Usa este esquema para organizar el contenido sin leerlo todo de una vez.`,
+
+      accesible:
+`Lectura accesible:
+
+Usa frases cortas.
+
+Identifica una idea por párrafo.
+
+Evita palabras difíciles cuando puedas.
+
+Si aparece un concepto complejo, explícalo con un ejemplo concreto.`,
+
+      divertido:
+`Reto de estudio:
+
+Nivel 1: encuentra tres palabras clave.
+
+Nivel 2: explica el tema como si se lo contaras a un amigo.
+
+Nivel 3: crea una pregunta difícil sobre el contenido.
+
+Nivel 4: responde sin mirar el texto.`
+    };
+
+    renderCards(fallback[currentMode]);
+  }
+
+  function speakResult() {
+    if (!lastResultText) {
+      alert("Primero genera un resultado.");
+      return;
+    }
+
+    stopSpeech();
+
+    const utterance = new SpeechSynthesisUtterance(lastResultText);
+    utterance.lang = "es-ES";
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function stopSpeech() {
+    window.speechSynthesis.cancel();
+  }
+
+  const fileInput = document.getElementById("pdfUpload");
+  const textarea = document.getElementById("inputText");
+  const pdfStatus = document.getElementById("pdfStatus");
+
+  fileInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    pdfStatus.innerText = "Leyendo PDF...";
+
+    try {
+      const reader = new FileReader();
+
+      reader.onload = async function () {
+        const typedarray = new Uint8Array(this.result);
+        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+
+        let text = "";
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          pdfStatus.innerText = `Leyendo página ${i} de ${pdf.numPages}...`;
+
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const strings = content.items.map(item => item.str);
+
+          text += strings.join(" ") + "\n\n";
+        }
+
+        textarea.value = text;
+        pdfStatus.innerText = "PDF cargado correctamente.";
+      };
+
+      reader.readAsArrayBuffer(file);
+
+    } catch (error) {
+      pdfStatus.innerText = "No se pudo leer el PDF.";
+    }
+  });
 </script>
 
 </body>
