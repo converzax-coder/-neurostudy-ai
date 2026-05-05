@@ -332,8 +332,7 @@
   let currentMode = "facil";
   let lastResultText = "";
 
-  const BACKEND_URL = "http://localhost:3000/api/estudiar";
-
+  const BACKEND_URL = "https://neurostudy-backend.onrender.com/api/estudiar";
   function selectMode(btn, mode) {
     currentMode = mode;
     document.querySelectorAll(".mode").forEach(b => b.classList.remove("active"));
